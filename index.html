@@ -1,0 +1,1214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ProAcademy | Elite Skill Platform</title>
+  <meta name="description" content="ProAcademy premium learning platform for top-demand skills, interactive search, courses, quizzes, and certifications." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #07131f;
+      --bg-2: #0d1d2b;
+      --surface: rgba(14, 23, 34, 0.82);
+      --surface-strong: rgba(17, 29, 43, 0.96);
+      --card: rgba(19, 30, 43, 0.9);
+      --card-soft: rgba(27, 39, 52, 0.75);
+      --card-alt: rgba(12, 22, 32, 0.75);
+      --line: rgba(148, 163, 184, 0.18);
+      --primary: #6ea8fe;
+      --primary-2: #8b5cf6;
+      --secondary: #3dd9b3;
+      --warning: #ffb84d;
+      --danger: #ff6b7d;
+      --text: #edf4ff;
+      --muted: #9bb0c9;
+      --shadow: 0 18px 50px rgba(15, 23, 42, 0.38);
+      --highlight: linear-gradient(135deg, rgba(110,168,254,0.18), rgba(139,92,246,0.22));
+    }
+
+    body.light {
+      --bg: #edf3ff;
+      --bg-2: #f7f9ff;
+      --surface: rgba(255, 255, 255, 0.62);
+      --surface-strong: rgba(255, 255, 255, 0.9);
+      --card: rgba(255, 255, 255, 0.98);
+      --card-soft: rgba(242, 245, 255, 0.92);
+      --card-alt: rgba(248, 250, 255, 0.9);
+      --line: rgba(103, 123, 156, 0.14);
+      --primary: #3b82f6;
+      --primary-2: #7c3aed;
+      --secondary: #14b8a6;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --text: #1b2434;
+      --muted: #52637a;
+      --shadow: 0 18px 48px rgba(91, 109, 146, 0.15);
+      --highlight: linear-gradient(135deg, rgba(59,130,246,0.12), rgba(124,58,237,0.14));
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(110,168,254,0.2), transparent 28%),
+        radial-gradient(circle at bottom right, rgba(139,92,246,0.16), transparent 30%),
+        var(--bg);
+      color: var(--text);
+      transition: background 0.35s ease, color 0.35s ease;
+      line-height: 1.5;
+    }
+
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+    button, input { font: inherit; }
+
+    .container { width: min(1180px, calc(100% - 28px)); margin: 0 auto; }
+
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 90;
+      backdrop-filter: blur(14px);
+      background: color-mix(in srgb, var(--surface) 88%, transparent);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 76px;
+      gap: 18px;
+    }
+
+    .brand {
+      display: flex; align-items: center; gap: 12px;
+      font-weight: 800; letter-spacing: -0.04em;
+      font-size: clamp(1.2rem, 1.6vw, 1.8rem);
+    }
+
+    .brand-mark {
+      width: 38px; height: 38px;
+      border-radius: 12px;
+      position: relative;
+      background: linear-gradient(135deg, var(--primary), var(--primary-2));
+      box-shadow: 0 15px 32px rgba(110, 168, 254, 0.35);
+    }
+
+    .brand-mark::before,
+    .brand-mark::after {
+      content: "";
+      position: absolute;
+      inset: 8px;
+      border: 2px solid rgba(255,255,255,0.88);
+      border-radius: 10px;
+      transform: rotate(45deg);
+    }
+
+    .nav-links {
+      display: flex; align-items: center; gap: 18px;
+      color: var(--muted);
+      font-weight: 600;
+      font-size: 0.96rem;
+    }
+
+    .nav-links a { transition: color 0.2s ease; }
+    .nav-links a:hover { color: var(--text); }
+
+    .nav-actions {
+      display: flex; align-items: center; gap: 12px;
+    }
+
+    .icon-btn,
+    .pill-btn,
+    .filter-btn,
+    .course-btn,
+    .action-btn,
+    .exam-btn,
+    .small-btn,
+    .cert-btn {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.02);
+      color: var(--text);
+      cursor: pointer;
+      transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.2s ease, background 0.2s ease;
+    }
+
+    .icon-btn:hover, .pill-btn:hover, .filter-btn:hover, .course-btn:hover, .action-btn:hover, .exam-btn:hover, .small-btn:hover, .cert-btn:hover {
+      transform: translateY(-1px);
+      border-color: rgba(110,168,254,0.38);
+      box-shadow: 0 10px 24px rgba(110,168,254,0.12);
+    }
+
+    .icon-btn {
+      width: 44px; height: 44px; border-radius: 14px; display: grid; place-items: center; font-size: 1.1rem;
+      background: var(--card-soft);
+    }
+
+    .pill-btn {
+      height: 44px; padding: 0 18px; border-radius: 14px; font-weight: 700;
+      background: linear-gradient(135deg, rgba(110,168,254,0.12), rgba(139,92,246,0.12));
+    }
+
+    .hero {
+      padding: 54px 0 30px;
+    }
+
+    .hero-shell {
+      display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 28px; align-items: stretch;
+    }
+
+    .hero-copy, .hero-panel {
+      padding: 28px 28px 24px;
+      border: 1px solid var(--line);
+      border-radius: 30px;
+      background: var(--highlight);
+      box-shadow: var(--shadow);
+      position: relative; overflow: hidden;
+    }
+
+    .hero-copy::before, .hero-panel::before {
+      content: "";
+      position: absolute;
+      inset: auto -15% -18% auto;
+      width: 180px; height: 180px;
+      background: radial-gradient(circle, rgba(110,168,254,0.36), transparent 60%);
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 7px 12px; border-radius: 999px; border: 1px solid rgba(110,168,254,0.22);
+      background: rgba(110,168,254,0.08); color: var(--primary); font-weight: 700; font-size: 0.75rem; letter-spacing: 0.09em; text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: ""; width: 8px; height: 8px; background: var(--secondary); border-radius: 50%; box-shadow: 0 0 18px var(--secondary);
+    }
+
+    h1 {
+      font-size: clamp(2.5rem, 5vw, 5rem);
+      line-height: 1.02;
+      letter-spacing: -0.06em;
+      margin: 18px 0 18px;
+      font-weight: 800;
+    }
+
+    .accent { background: linear-gradient(135deg, var(--primary), var(--primary-2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+    .subhead {
+      margin: 0 0 22px;
+      max-width: 640px;
+      color: var(--muted);
+      font-size: 1.04rem;
+    }
+
+    .cta-row {
+      display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 18px;
+    }
+
+    .primary-btn, .primary-outline {
+      min-height: 52px; padding: 0 22px; border-radius: 16px; display: inline-flex; align-items: center; justify-content: center; font-weight: 800; border: none; letter-spacing: -0.02em;
+    }
+
+    .primary-btn {
+      background: linear-gradient(135deg, var(--primary), var(--primary-2)); color: white; box-shadow: 0 16px 28px rgba(110,168,254,0.28);
+    }
+
+    .primary-outline {
+      background: rgba(255,255,255,0.02); border: 1px solid var(--line); color: var(--text);
+    }
+
+    .stats {
+      display: grid; grid-template-columns: repeat(3, minmax(110px, 1fr)); gap: 16px; margin-top: 18px;
+    }
+
+    .stat {
+      background: rgba(255,255,255,0.02); border: 1px solid var(--line); border-radius: 18px; padding: 16px 14px;
+    }
+
+    .stat strong {
+      display: block; font-size: 1.6rem; letter-spacing: -0.05em; margin-bottom: 4px;
+    }
+
+    .stat span { color: var(--muted); font-size: 0.82rem; }
+
+    .hero-panel {
+      background: linear-gradient(180deg, rgba(12,17,25,0.84), rgba(15,25,35,0.96));
+      border-radius: 30px;
+      overflow: hidden;
+    }
+
+    .mini-card {
+      background: var(--card-soft); border: 1px solid var(--line); border-radius: 22px; padding: 18px 18px 14px; margin-bottom: 16px;
+    }
+
+    .mini-header {
+      display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;
+    }
+
+    .chip {
+      padding: 6px 10px; border-radius: 999px; font-size: 0.75rem; font-weight: 700;
+      background: rgba(61, 217, 179, 0.1); color: var(--secondary); border: 1px solid rgba(61, 217, 179, 0.2);
+    }
+
+    .mini-graph {
+      height: 140px; border-radius: 18px; background: linear-gradient(180deg, rgba(110,168,254,0.08), rgba(124,58,237,0.06));
+      border: 1px solid var(--line); overflow: hidden; position: relative;
+      display: flex; align-items: end; justify-content: space-between; gap: 8px; padding: 16px 12px 6px;
+    }
+
+    .bar {
+      flex: 1; border-radius: 10px 10px 0 0; min-height: 18%;
+      background: linear-gradient(180deg, var(--primary), rgba(139,92,246,0.92));
+      box-shadow: 0 20px 26px rgba(110,168,254,0.18);
+    }
+
+    .mini-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px;
+    }
+
+    .small-panel {
+      background: linear-gradient(135deg, rgba(110,168,254,0.08), rgba(61,217,179,0.08));
+      border: 1px solid var(--line); border-radius: 18px; padding: 14px;
+    }
+
+    .search-wrap {
+      margin-top: 10px; padding: 16px 0 10px;
+    }
+
+    .search-box {
+      display: flex; align-items: center; gap: 12px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 10px 14px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.02);
+    }
+
+    .search-box input {
+      background: transparent; border: none; outline: none; color: var(--text); flex: 1; font-size: 0.98rem;
+    }
+
+    .search-box input::placeholder { color: var(--muted); }
+
+    .filters {
+      display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+      margin-top: 18px;
+      padding-bottom: 4px;
+    }
+
+    .filter-btn {
+      border-radius: 999px; padding: 10px 16px; font-weight: 700; background: rgba(255,255,255,0.02); color: var(--muted);
+    }
+
+    .filter-btn.active {
+      background: linear-gradient(135deg, rgba(110,168,254,0.18), rgba(139,92,246,0.2));
+      border-color: rgba(110,168,254,0.28);
+      color: var(--text);
+    }
+
+    .results-head {
+      display: flex; justify-content: space-between; align-items: center; gap: 12px; margin: 30px 0 16px;
+      flex-wrap: wrap;
+    }
+
+    .results-head h2 {
+      margin: 0; letter-spacing: -0.05em; font-size: clamp(1.7rem, 2vw, 2.4rem);
+    }
+
+    .count-pill {
+      font-weight: 700; color: var(--muted); padding: 8px 14px; border-radius: 999px; background: rgba(255,255,255,0.02); border: 1px solid var(--line);
+    }
+
+    .course-grid {
+      display: grid; grid-template-columns: repeat(3, minmax(280px, 1fr)); gap: 20px;
+      padding-bottom: 60px;
+    }
+
+    .course-card {
+      background: linear-gradient(180deg, rgba(18,28,39,0.84), rgba(13,23,33,0.96));
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+      position: relative; overflow: hidden;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    body.light .course-card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(246,249,255,0.9));
+    }
+
+    .course-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(110,168,254,0.32);
+    }
+
+    .course-card.hidden { display: none; }
+
+    .thumb {
+      height: 160px; border-radius: 18px; border: 1px solid var(--line);
+      background: linear-gradient(135deg, rgba(110,168,254,0.22), rgba(139,92,246,0.18), rgba(61,217,179,0.12));
+      position: relative; overflow: hidden;
+      margin-bottom: 16px;
+    }
+
+    .thumb::before {
+      content: ""; position: absolute; inset: 0; background: linear-gradient(135deg, transparent, rgba(255,255,255,0.08), transparent);
+      transform: translateX(-40%);
+      animation: shimmer 2.8s ease-in-out infinite;
+    }
+
+    .thumb::after {
+      content: ""; position: absolute; left: 50%; top: 50%; width: 62px; height: 62px; border-radius: 50%; transform: translate(-50%,-50%);
+      background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.22);
+      box-shadow: inset 0 0 30px rgba(255,255,255,0.08);
+    }
+
+    @keyframes shimmer {
+      0% { transform: translateX(-130%); }
+      100% { transform: translateX(130%); }
+    }
+
+    .card-top {
+      display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 10px;
+    }
+
+    .badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 6px 10px; border-radius: 999px; font-size: 0.72rem; font-weight: 700; border: 1px solid rgba(61,217,179,0.2); background: rgba(61,217,179,0.08); color: var(--secondary);
+    }
+
+    .rating {
+      color: #fbbf24; font-weight: 700; font-size: 0.84rem;
+    }
+
+    .course-card h3 {
+      margin: 0; letter-spacing: -0.04em; font-size: 1.28rem; line-height: 1.25; min-height: 62px;
+    }
+
+    .meta {
+      display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 14px 0 18px; color: var(--muted); font-size: 0.84rem;
+    }
+
+    .course-btn {
+      display: inline-flex; align-items: center; justify-content: center; width: 100%; height: 46px; border-radius: 14px; font-weight: 800; background: linear-gradient(135deg, rgba(110,168,254,0.14), rgba(139,92,246,0.12));
+    }
+
+    .modal {
+      position: fixed; inset: 0; z-index: 200; display: none; align-items: center; justify-content: center; padding: 20px;
+      background: rgba(1, 6, 12, 0.72);
+      backdrop-filter: blur(8px);
+    }
+
+    .modal.open { display: flex; }
+
+    .modal-panel {
+      width: min(1100px, 100%); max-height: 90vh; overflow: auto; background: var(--surface-strong); border: 1px solid var(--line); border-radius: 28px; box-shadow: var(--shadow);
+      position: relative; padding: 20px;
+    }
+
+    .close-modal {
+      position: absolute; right: 16px; top: 16px; width: 42px; height: 42px; border-radius: 12px; background: rgba(255,255,255,0.04); border: 1px solid var(--line); color: var(--text); cursor: pointer; font-size: 1.25rem;
+    }
+
+    .modal-body {
+      display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 18px; padding-top: 12px;
+    }
+
+    .video-card {
+      background: rgba(255,255,255,0.02); border: 1px solid var(--line); border-radius: 24px; overflow: hidden;
+      min-height: 420px;
+    }
+
+    .video-frame {
+      width: 100%; aspect-ratio: 16 / 9; border: 0; background: #0b1621;
+    }
+
+    .course-aside {
+      background: var(--card-soft); border: 1px solid var(--line); border-radius: 24px; padding: 18px;
+      display: flex; flex-direction: column; gap: 18px;
+    }
+
+    .course-title {
+      font-size: clamp(1.5rem, 2vw, 2.3rem); margin: 0; letter-spacing: -0.05em;
+    }
+
+    .course-desc { color: var(--muted); margin: 0; }
+
+    .detail-list {
+      display: grid; gap: 10px; margin-top: 8px;
+    }
+
+    .detail-row {
+      display: flex; align-items: center; justify-content: space-between; gap: 8px; border-bottom: 1px solid var(--line); padding-bottom: 10px; color: var(--muted); font-size: 0.9rem;
+    }
+
+    .detail-row strong { color: var(--text); }
+
+    .launch-btn, .action-btn, .exam-btn, .cert-btn {
+      width: 100%; min-height: 48px; border-radius: 14px; font-weight: 800; border: none; cursor: pointer; letter-spacing: -0.02em;
+    }
+
+    .launch-btn, .action-btn {
+      background: linear-gradient(135deg, var(--primary), var(--primary-2)); color: white; box-shadow: 0 18px 30px rgba(110,168,254,0.18);
+    }
+
+    .exam-btn {
+      background: linear-gradient(135deg, rgba(61,217,179,0.15), rgba(110,168,254,0.12)); border: 1px solid var(--line); color: var(--text);
+    }
+
+    .action-btn.secondary {
+      background: rgba(255,255,255,0.02); border: 1px solid var(--line); color: var(--text);
+    }
+
+    .assessment-box {
+      display: none; margin-top: 24px; padding: 18px; border: 1px solid var(--line); border-radius: 20px; background: rgba(255,255,255,0.02);
+    }
+
+    .assessment-box.visible { display: block; }
+
+    .assessment-box h3 {
+      margin: 0 0 12px; font-size: 1.1rem; letter-spacing: -0.03em;
+    }
+
+    .quiz-form {
+      display: grid; gap: 14px;
+    }
+
+    .quiz-question {
+      color: var(--muted); font-size: 0.96rem; margin-bottom: 8px;
+    }
+
+    .option-list {
+      display: grid; gap: 10px;
+    }
+
+    .option {
+      display: flex; align-items: center; gap: 10px; padding: 12px 12px; border-radius: 12px; border: 1px solid var(--line); background: rgba(255,255,255,0.02); cursor: pointer; transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .option:hover { border-color: rgba(110,168,254,0.3); }
+    .option input { accent-color: var(--primary); }
+
+    .status-box {
+      display: none; margin-top: 14px; padding: 12px 14px; border-radius: 14px; border: 1px solid var(--line);
+      font-weight: 700;
+    }
+
+    .status-box.success {
+      display: block; background: rgba(61,217,179,0.08); border-color: rgba(61,217,179,0.4); color: #88f0d0;
+    }
+
+    .status-box.error {
+      display: block; background: rgba(255,107,125,0.08); border-color: rgba(255,107,125,0.32); color: #ffb4bf;
+    }
+
+    .retake-btn {
+      display: none; margin-top: 14px; width: 100%; min-height: 44px; border-radius: 12px; border: 1px solid rgba(255,107,125,0.25); background: rgba(255,107,125,0.09); color: #ffb4bf; font-weight: 800; cursor: pointer;
+    }
+
+    .retake-btn.visible { display: inline-flex; align-items: center; justify-content: center; }
+
+    .certificate-panel {
+      display: none; margin-top: 18px; padding: 18px; border-radius: 22px; border: 1px solid rgba(110,168,254,0.24); background: linear-gradient(135deg, rgba(110,168,254,0.08), rgba(139,92,246,0.12), rgba(61,217,179,0.08));
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+    }
+
+    .certificate-panel.visible { display: block; }
+
+    .certificate-head {
+      display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 12px;
+    }
+
+    .certificate-box {
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 18px; padding: 18px; position: relative; overflow: hidden;
+    }
+
+    .certificate-box::before {
+      content: ""; position: absolute; inset: 16px; border: 2px solid rgba(255,255,255,0.1); border-radius: 14px;
+    }
+
+    .certificate-grid {
+      display: grid; gap: 8px; position: relative; z-index: 1;
+    }
+
+    .certificate-grid strong {
+      font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted);
+    }
+
+    .certificate-grid h4 {
+      margin: 0; font-size: clamp(1.5rem, 2vw, 2.2rem); letter-spacing: -0.04em;
+    }
+
+    .certificate-grid .student-name {
+      font-size: 1.55rem; font-weight: 800; letter-spacing: -0.04em;
+    }
+
+    .certificate-grid .cert-meta {
+      color: var(--muted); font-size: 0.92rem;
+    }
+
+    .cert-actions {
+      display: flex; gap: 10px; margin-top: 16px;
+      flex-wrap: wrap;
+    }
+
+    .cert-btn {
+      flex: 1; min-width: 170px; background: rgba(255,255,255,0.02); border: 1px solid var(--line); color: var(--text);
+    }
+
+    .cert-btn.primary {
+      background: linear-gradient(135deg, var(--primary), var(--primary-2)); color: white; border: none;
+    }
+
+    .student-register {
+      padding: 28px 0 54px;
+    }
+
+    .register-shell {
+      display: grid; grid-template-columns: 1fr 0.9fr; gap: 22px; align-items: center; padding: 26px 26px 30px; border-radius: 30px; background: linear-gradient(135deg, rgba(110,168,254,0.08), rgba(139,92,246,0.08), rgba(61,217,179,0.08)); border: 1px solid var(--line); box-shadow: var(--shadow);
+    }
+
+    .register-copy h2 {
+      margin: 0 0 12px; letter-spacing: -0.05em; font-size: clamp(2rem, 3vw, 3rem);
+    }
+
+    .register-copy p {
+      margin: 0 0 20px; color: var(--muted);
+    }
+
+    .student-form {
+      background: var(--card-soft); border: 1px solid var(--line); border-radius: 20px; padding: 18px;
+      display: grid; gap: 12px;
+    }
+
+    .input-group {
+      display: grid; gap: 8px;
+    }
+
+    .input-group label {
+      font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-weight: 700;
+    }
+
+    .input-group input {
+      width: 100%; height: 52px; border-radius: 14px; border: 1px solid var(--line); background: rgba(255,255,255,0.02); color: var(--text); padding: 0 14px; outline: none;
+    }
+
+    .input-group input:focus {
+      border-color: rgba(110,168,254,0.4); box-shadow: 0 0 0 3px rgba(110,168,254,0.12);
+    }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+    .form-status {
+      display: none; margin-top: 10px; padding: 12px 14px; border-radius: 12px; font-weight: 700; border: 1px solid var(--line);
+    }
+
+    .form-status.success {
+      display: block; background: rgba(61,217,179,0.08); border-color: rgba(61,217,179,0.36); color: #8decd3;
+    }
+
+    .form-status.error {
+      display: block; background: rgba(255,107,125,0.1); border-color: rgba(255,107,125,0.25); color: #ffbcc5;
+    }
+
+    .primary-submit {
+      margin-top: 6px; width: 100%; min-height: 52px; border: none; border-radius: 14px; background: linear-gradient(135deg, var(--primary), var(--primary-2)); color: white; font-weight: 800; cursor: pointer;
+    }
+
+    .hidden { display: none !important; }
+
+    @media (max-width: 980px) {
+      .hero-shell, .modal-body, .register-shell { grid-template-columns: 1fr; }
+      .course-grid { grid-template-columns: repeat(2, minmax(240px, 1fr)); }
+      .nav-links { display: none; }
+    }
+
+    @media (max-width: 640px) {
+      .course-grid { grid-template-columns: 1fr; }
+      .stats { grid-template-columns: repeat(3, minmax(80px, 1fr)); }
+      .form-row { grid-template-columns: 1fr; }
+      .nav { min-height: 68px; }
+      h1 { font-size: 2.5rem; }
+      .hero-copy, .hero-panel, .register-shell { padding: 22px 18px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="container nav">
+      <a href="#top" class="brand" aria-label="ProAcademy home">
+        <span class="brand-mark"></span>
+        <span>ProAcademy</span>
+      </a>
+
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="#home">Home</a>
+        <a href="#catalog">Catalog</a>
+        <a href="#student-registry">Student Registry</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="icon-btn" id="themeToggle" type="button" aria-label="Toggle theme">☀️</button>
+        <button class="pill-btn" type="button">Join Cohort</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero" id="home">
+      <div class="container hero-shell">
+        <div class="hero-copy">
+          <div class="eyebrow">Elite Skill Academy</div>
+          <h1>Build <span class="accent">high-income</span> skills for the next decade.</h1>
+          <p class="subhead">Learn from the world’s most demanded disciplines with immersive, career-focused training. ProAcademy maps every skill into a premium, result-driven journey built for modern professionals and ambitious learners.</p>
+
+          <div class="cta-row">
+            <a class="primary-btn" href="#catalog">Explore Courses</a>
+            <a class="primary-outline" href="#student-registry">Activate Student ID</a>
+          </div>
+
+          <div class="stats">
+            <div class="stat">
+              <strong>26</strong>
+              <span>Demand Skills</span>
+            </div>
+            <div class="stat">
+              <strong>4.9/5</strong>
+              <span>Mentor Rating</span>
+            </div>
+            <div class="stat">
+              <strong>18k+</strong>
+              <span>Career Trackers</span>
+            </div>
+          </div>
+        </div>
+
+        <aside class="hero-panel" aria-label="Platform overview">
+          <div class="mini-card">
+            <div class="mini-header">
+              <strong>Success Velocity</strong>
+              <span class="chip">Live cohort</span>
+            </div>
+            <div class="mini-graph" aria-hidden="true">
+              <span class="bar" style="height: 46%"></span>
+              <span class="bar" style="height: 58%"></span>
+              <span class="bar" style="height: 72%"></span>
+              <span class="bar" style="height: 81%"></span>
+              <span class="bar" style="height: 93%"></span>
+              <span class="bar" style="height: 86%"></span>
+            </div>
+          </div>
+
+          <div class="mini-grid">
+            <div class="small-panel">
+              <div style="color: var(--muted); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em;">Session</div>
+              <div style="font-size: 1.6rem; letter-spacing: -0.06em; font-weight: 800; margin-top: 6px;">92%</div>
+              <div style="font-size: 0.85rem; color: var(--secondary); margin-top: 2px;">Retention</div>
+            </div>
+            <div class="small-panel">
+              <div style="color: var(--muted); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em;">Career Lift</div>
+              <div style="font-size: 1.6rem; letter-spacing: -0.06em; font-weight: 800; margin-top: 6px;">4.8x</div>
+              <div style="font-size: 0.85rem; color: var(--primary); margin-top: 2px;">Average ROI</div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="container" id="catalog">
+      <div class="search-wrap">
+        <div class="search-box" role="search">
+          <span aria-hidden="true">🔎</span>
+          <input id="courseSearch" type="search" placeholder="Search for a skill, category, or track..." aria-label="Search courses" />
+        </div>
+        <div class="filters" id="filterBar" aria-label="Course categories"></div>
+      </div>
+
+      <div class="results-head">
+        <h2>Career Focused Tracks</h2>
+        <div class="count-pill"><span id="resultCount">0</span> courses</div>
+      </div>
+
+      <div class="course-grid" id="courseGrid" aria-live="polite"></div>
+    </section>
+
+    <section class="container student-register" id="student-registry">
+      <div class="register-shell">
+        <div class="register-copy">
+          <div class="eyebrow">Student Database Registry</div>
+          <h2>ফ্রি স্টুডেন্ট আইডি অ্যাক্টিভেশন</h2>
+          <p>Secure your free student activation ID and unlock institutional access, mentor dashboards, and exam-ready community pathways.</p>
+        </div>
+
+        <form class="student-form" id="studentForm" novalidate>
+          <div class="input-group">
+            <label for="studentName">Full Name</label>
+            <input id="studentName" type="text" placeholder="e.g. Rahim Uddin" required />
+          </div>
+
+          <div class="input-group">
+            <label for="studentMobile">Mobile Number</label>
+            <input id="studentMobile" type="tel" inputmode="numeric" maxlength="11" placeholder="11-digit mobile number" required />
+          </div>
+
+          <div class="form-row">
+            <div class="input-group">
+              <label for="studentEmail">Academic Email</label>
+              <input id="studentEmail" type="email" placeholder="name@proacademy.io" required />
+            </div>
+            <div class="input-group">
+              <label for="studentBatch">Batch Track</label>
+              <input id="studentBatch" type="text" placeholder="e.g. Spring 2026" required />
+            </div>
+          </div>
+
+          <button class="primary-submit" type="submit">Activate Student ID</button>
+          <div id="formStatus" class="form-status" aria-live="polite"></div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <div class="modal" id="courseModal" aria-hidden="true">
+    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="close-modal" id="closeModal" type="button" aria-label="Close modal">×</button>
+      <div class="modal-body">
+        <div class="video-card">
+          <iframe id="videoFrame" class="video-frame" src="" title="Course preview" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+
+        <aside class="course-aside">
+          <div>
+            <div class="eyebrow">Premium Track</div>
+            <h3 class="course-title" id="modalTitle">Course Title</h3>
+            <p class="course-desc" id="modalDescription">Course description.</p>
+          </div>
+
+          <div class="detail-list">
+            <div class="detail-row"><span>Category</span><strong id="modalCategory">-</strong></div>
+            <div class="detail-row"><span>Mastery</span><strong id="modalTrack">-</strong></div>
+            <div class="detail-row"><span>Duration</span><strong id="modalDuration">-</strong></div>
+            <div class="detail-row"><span>Instructor</span><strong id="modalInstructor">-</strong></div>
+          </div>
+
+          <button class="launch-btn" id="launchQuizBtn" type="button">Launch Certification Quiz</button>
+          <button class="action-btn secondary" id="closeSecondary" type="button">Continue Exploring</button>
+        </aside>
+      </div>
+
+      <div class="assessment-box" id="assessmentBox">
+        <h3>Certification Assessment</h3>
+        <div class="quiz-form">
+          <div>
+            <div class="quiz-question" id="quizQuestion">Question text</div>
+            <div class="option-list" id="optionList"></div>
+          </div>
+        </div>
+        <div class="status-box" id="statusBox"></div>
+        <button class="retake-btn" id="retakeBtn" type="button">🔁 Retake Quiz</button>
+      </div>
+
+      <div class="certificate-panel" id="certificatePanel">
+        <div class="certificate-head">
+          <div class="eyebrow">Institutional Certificate</div>
+          <strong id="certificateCourseBadge">Verified Credential</strong>
+        </div>
+
+        <div class="certificate-box">
+          <div class="certificate-grid">
+            <strong>ProAcademy Certification</strong>
+            <h4>Digital Certificate of Completion</h4>
+            <div class="student-name" id="certStudentName">Student Name</div>
+            <div class="cert-meta" id="certCourseName">Course Name</div>
+            <div class="cert-meta">Issued by ProAcademy Institution • Batch Verified</div>
+            <div class="cert-meta" id="certDate">Date: --</div>
+          </div>
+        </div>
+
+        <div class="cert-actions">
+          <button class="cert-btn primary" id="savePdfBtn" type="button">Save as PDF</button>
+          <button class="cert-btn" id="printCertBtn" type="button">Print Certificate</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const courseData = [
+      { name: 'Spoken English', category: 'English & Communication', categoryKey: 'english', level: 'Beginner → Advanced', duration: '6 weeks', instructor: 'Mariam Ahmed', track: 'Communication', youtube: 'https://www.youtube.com/embed/7F7LdYgQmS0?si=QxN6ZLx8wvrM0zp6', quiz: { question: 'Which is the correct grammatical sentence?', options: ['She go to school every day.', 'She goes to school every day.', 'She going to school every day.', 'She went to school every day.'], answer: 'She goes to school every day.' } },
+      { name: 'Business Writing', category: 'English & Communication', categoryKey: 'english', level: 'Professional', duration: '5 weeks', instructor: 'Nadia Rahman', track: 'Communication', youtube: 'https://www.youtube.com/embed/2Vv-BfVoR4g?si=6ULkT7blRk4z7eQ7', quiz: { question: 'What is the main goal of professional business writing?', options: ['To be descriptive only', 'To communicate clearly and persuade action', 'To use the most complex words', 'To sound emotional without clarity'], answer: 'To communicate clearly and persuade action' } },
+      { name: 'Public Speaking', category: 'English & Communication', categoryKey: 'english', level: 'Confidence', duration: '7 weeks', instructor: 'Ahsan Rahim', track: 'Communication', youtube: 'https://www.youtube.com/embed/8P0tsdQei7A?si=iiV33K7vVhP9vPq0', quiz: { question: 'What is the most important habit for effective public speaking?', options: ['Reading silently only', 'Speaking as fast as possible', 'Practicing with clarity and audience focus', 'Avoiding eye contact'], answer: 'Practicing with clarity and audience focus' } },
+      { name: 'Fiverr/Upwork Mastery', category: 'Freelancing & Agency', categoryKey: 'freelancing', level: 'Career Launch', duration: '8 weeks', instructor: 'Sajid Karim', track: 'Freelance Growth', youtube: 'https://www.youtube.com/embed/l9Vsgv98f5M?si=ZKEC4OobIh6jQhM5', quiz: { question: 'What makes a winning Fiverr or Upwork profile?', options: ['A generic profile with no niche', 'Clear niche, proof, and optimized portfolio', 'A very short description', 'Only using stock text'], answer: 'Clear niche, proof, and optimized portfolio' } },
+      { name: 'B2B Cold Outreach', category: 'Freelancing & Agency', categoryKey: 'freelancing', level: 'Sales', duration: '4 weeks', instructor: 'Arif Hossain', track: 'Lead Generation', youtube: 'https://www.youtube.com/embed/DzkowfI8rHk?si=QIQ0n0j8_ERuuQ8_', quiz: { question: 'Why is personalization important in cold outreach?', options: ['It takes longer than mass messaging', 'It increases relevance and response rate', 'It avoids professionalism', 'It replaces all follow-ups'], answer: 'It increases relevance and response rate' } },
+      { name: 'Agency Scaling', category: 'Freelancing & Agency', categoryKey: 'freelancing', level: 'Growth Systems', duration: '9 weeks', instructor: 'Imran Jamil', track: 'Operations', youtube: 'https://www.youtube.com/embed/X2gL3Cw7hJY?si=1eOd7M-56Y8js0Wn', quiz: { question: 'What is critical when scaling an agency?', options: ['Hiring without systems', 'Building repeatable systems and SOPs', 'Reducing client communication', 'Avoiding onboarding'], answer: 'Building repeatable systems and SOPs' } },
+      { name: 'Java Enterprise Engineering', category: 'IT & Coding', categoryKey: 'it', level: 'Track 26', duration: '12 weeks', instructor: 'Rafi Hasan', track: 'Backend Systems', youtube: 'https://www.youtube.com/embed/7Vn8eQyKZ0A?si=ERlLlp1RfZV-qbB7', quiz: { question: 'What is a primary advantage of Java Enterprise architecture?', options: ['It is limited to mobile apps', 'It provides scalability and enterprise-grade tooling', 'It removes testing completely', 'It replaces all networks'], answer: 'It provides scalability and enterprise-grade tooling' } },
+      { name: 'Python Automation', category: 'IT & Coding', categoryKey: 'it', level: 'Automation', duration: '6 weeks', instructor: 'Mehedi Hasan', track: 'Scripting', youtube: 'https://www.youtube.com/embed/3D2xVnQXUHg?si=5i8Rxf1rF3yS1V2l', quiz: { question: 'Which Python feature is most useful for automation?', options: ['Manual copy-paste', 'Extensive libraries and scripting', 'Only CSS styling', 'Minimal logic'], answer: 'Extensive libraries and scripting' } },
+      { name: 'Full-Stack Web Development', category: 'IT & Coding', categoryKey: 'it', level: 'Product', duration: '10 weeks', instructor: 'Nusrin Ali', track: 'Web Engineering', youtube: 'https://www.youtube.com/embed/HcOc7P5BMi4?si=A4srzjE5L5og0erv', quiz: { question: 'What is the purpose of a full-stack web developer?', options: ['Only working on design', 'Building frontend and backend integrated systems', 'Only writing documentation', 'Only editing images'], answer: 'Building frontend and backend integrated systems' } },
+      { name: 'Ethical Hacking', category: 'IT & Coding', categoryKey: 'it', level: 'Security', duration: '8 weeks', instructor: 'Tanvir Hossain', track: 'Cyber Security', youtube: 'https://www.youtube.com/embed/Ox6L8s8sQ1g?si=JgHh0x5nNw8PzYh6', quiz: { question: 'What is ethical hacking primarily focused on?', options: ['Stealing information', 'Improving security by identifying vulnerabilities legally', 'Disabling software', 'Breaking systems without permission'], answer: 'Improving security by identifying vulnerabilities legally' } },
+      { name: 'UI/UX Figma Architecture', category: 'Creative Design', categoryKey: 'design', level: 'Product Design', duration: '7 weeks', instructor: 'Zarin Sultana', track: 'Design Systems', youtube: 'https://www.youtube.com/embed/PnL9n3G2U0Q?si=F2aqfUiGmXY0i6p7', quiz: { question: 'What is the main purpose of a design system?', options: ['To reduce user trust', 'To create consistent reusable interfaces', 'To avoid all user feedback', 'To eliminate research'], answer: 'To create consistent reusable interfaces' } },
+      { name: 'Cinematic DaVinci Video Editing', category: 'Creative Design', categoryKey: 'design', level: 'Production', duration: '6 weeks', instructor: 'Mahir Khan', track: 'Video Craft', youtube: 'https://www.youtube.com/embed/n7xNQnT7qD0?si=6v0iHjY3dR53PslP', quiz: { question: 'What is the key benefit of color grading in cinematic editing?', options: ['It makes the video louder', 'It creates emotional tone and visual consistency', 'It changes the script', 'It reduces the frame rate'], answer: 'It creates emotional tone and visual consistency' } },
+      { name: 'Motion Graphics', category: 'Creative Design', categoryKey: 'design', level: 'Visual Storytelling', duration: '5 weeks', instructor: 'Shabnam Noor', track: 'Animation', youtube: 'https://www.youtube.com/embed/LWwzCI2gAbA?si=euyW3hNnMfbv9GWe', quiz: { question: 'Why are keyframes important in motion graphics?', options: ['They reduce the need for animation', 'They define movement and timing across frames', 'They remove all transitions', 'They are only used in audio editing'], answer: 'They define movement and timing across frames' } },
+      { name: 'Performance Marketing', category: 'Business Growth', categoryKey: 'growth', level: 'Scaling', duration: '7 weeks', instructor: 'Shuvo Kabir', track: 'Acquisition', youtube: 'https://www.youtube.com/embed/1sD0tr7F5wQ?si=8FQ2NmmhZB7B7DFS', quiz: { question: 'What is the primary goal of performance marketing?', options: ['Branding only', 'Driving measurable results like leads and sales', 'General awareness only', 'Creating static images'], answer: 'Driving measurable results like leads and sales' } },
+      { name: 'Conversion Copywriting', category: 'Business Growth', categoryKey: 'growth', level: 'Revenue', duration: '5 weeks', instructor: 'Samira Islam', track: 'Messaging', youtube: 'https://www.youtube.com/embed/0nJuelHvwZ0?si=GdM11dTgq9U8t9mJ', quiz: { question: 'What does conversion-focused copy aim to do?', options: ['Avoid action', 'Persuade the audience to take action', 'Only describe a brand', 'Always be short without value'], answer: 'Persuade the audience to take action' } },
+      { name: 'SEO Ranking', category: 'Business Growth', categoryKey: 'growth', level: 'Organic Growth', duration: '8 weeks', instructor: 'Rashed Karim', track: 'Search Intelligence', youtube: 'https://www.youtube.com/embed/6BqhQx5xLwA?si=S-4u6Jb6jP2nCq5Q', quiz: { question: 'Which factor is most important for long-term SEO success?', options: ['Keyword stuffing', 'Quality content and search intent alignment', 'Only paid ads', 'Changing titles randomly'], answer: 'Quality content and search intent alignment' } },
+      { name: 'Digital Marketing Strategy', category: 'Business Growth', categoryKey: 'growth', level: 'Growth', duration: '6 weeks', instructor: 'Jahid Mahmud', track: 'Acquisition', youtube: 'https://www.youtube.com/embed/8L-_6kV6H0w?si=YVkk4Iy0f2juQ0Ev', quiz: { question: 'What is the foundation of strong digital marketing?', options: ['Guessing', 'Clear positioning and data-driven strategy', 'Posting without research', 'Only social media trends'], answer: 'Clear positioning and data-driven strategy' } },
+      { name: 'Brand Positioning', category: 'Business Growth', categoryKey: 'growth', level: 'Strategy', duration: '4 weeks', instructor: 'Nusrat Jahan', track: 'Brand', youtube: 'https://www.youtube.com/embed/gM0X-67c6Jk?si=8hnc6Q2wW90D0uEv', quiz: { question: 'Brand positioning is primarily about:', options: ['Copying competitors', 'Owning a distinctive place in the customer mind', 'Lowering prices always', 'Ignoring audience needs'], answer: 'Owning a distinctive place in the customer mind' } },
+      { name: 'Customer Success Leadership', category: 'Business Growth', categoryKey: 'growth', level: 'Retention', duration: '5 weeks', instructor: 'Farhan Iqbal', track: 'Revenue Retention', youtube: 'https://www.youtube.com/embed/7sPtC0G0wIY?si=12KS4kCk3mMz1gwr', quiz: { question: 'Why does customer success matter?', options: ['It is only for support teams', 'It drives retention, referrals, and lifetime value', 'It increases churn', 'It replaces product quality'], answer: 'It drives retention, referrals, and lifetime value' } },
+      { name: 'Product Management', category: 'Business Growth', categoryKey: 'growth', level: 'Strategy', duration: '8 weeks', instructor: 'Ritu Chowdhury', track: 'Execution', youtube: 'https://www.youtube.com/embed/TdZ0kAUq0ws?si=blZo7K4L0FJX3nXH', quiz: { question: 'What is product management responsible for?', options: ['Only writing code', 'Balancing user needs, business goals, and delivery', 'Only marketing', 'Removing all feedback'], answer: 'Balancing user needs, business goals, and delivery' } },
+      { name: 'ERP Systems Mastery', category: 'IT & Coding', categoryKey: 'it', level: 'Operations', duration: '7 weeks', instructor: 'Dewan Nayeem', track: 'Business Systems', youtube: 'https://www.youtube.com/embed/f4v5JvVfU8U?si=FM4xaqzqVcYVht6D', quiz: { question: 'What does ERP primarily help organizations do?', options: ['Isolate departments', 'Integrate core business processes', 'Remove all reporting', 'Replace every team member'], answer: 'Integrate core business processes' } },
+      { name: 'AI Prompt Engineering', category: 'IT & Coding', categoryKey: 'it', level: 'AI Workflow', duration: '4 weeks', instructor: 'Tushar Rana', track: 'Automation', youtube: 'https://www.youtube.com/embed/RQfQ1D8tFqQ?si=_FBj0CWNQqP0hez4', quiz: { question: 'What is the strongest prompt engineering habit?', options: ['Adding vague commands', 'Specifying task, context, output pattern, and constraints', 'Using one-word prompts only', 'Ignoring examples'], answer: 'Specifying task, context, output pattern, and constraints' } },
+      { name: 'DevOps Foundations', category: 'IT & Coding', categoryKey: 'it', level: 'Delivery', duration: '6 weeks', instructor: 'Majharul Alam', track: 'Infrastructure', youtube: 'https://www.youtube.com/embed/4R-lILR9UZY?si=5L8WpVh0Xl3J9UVS', quiz: { question: 'What is a key goal of DevOps?', options: ['Slower releases', 'Faster delivery with automation and collaboration', 'Manual deployment only', 'No monitoring'], answer: 'Faster delivery with automation and collaboration' } },
+      { name: 'Data Analytics & BI', category: 'IT & Coding', categoryKey: 'it', level: 'Decision Making', duration: '7 weeks', instructor: 'Samiha Noor', track: 'Insights', youtube: 'https://www.youtube.com/embed/8Fjfnmhy-wc?si=gbiK2KdkMpnqyEw3', quiz: { question: 'Why is data analytics valuable for businesses?', options: ['It avoids decisions', 'It enables evidence-based decisions and forecasting', 'It replaces all strategy', 'It only sums numbers'], answer: 'It enables evidence-based decisions and forecasting' } },
+      { name: 'Cloud Architecture', category: 'IT & Coding', categoryKey: 'it', level: 'Infrastructure', duration: '8 weeks', instructor: 'Khairul Bashar', track: 'Systems', youtube: 'https://www.youtube.com/embed/pCLtLzZG7U4?si=yaAyk6hA4ps8d9Nn', quiz: { question: 'What is a primary benefit of cloud architecture?', options: ['No scaling', 'Scalable, elastic, and cost-efficient infrastructure', 'Only local storage', 'No automation'], answer: 'Scalable, elastic, and cost-efficient infrastructure' } }
+    ];
+
+    const categories = [
+      { key: 'all', label: 'All Tracks' },
+      { key: 'english', label: 'English & Communication' },
+      { key: 'freelancing', label: 'Freelancing & Agency' },
+      { key: 'it', label: 'IT & Coding' },
+      { key: 'design', label: 'Creative Design' },
+      { key: 'growth', label: 'Business Growth' }
+    ];
+
+    const state = {
+      search: '',
+      activeCategory: 'all',
+      selectedCourse: null,
+      activeQuizIndex: 0,
+      activeAssessmentCourse: null,
+      quizAnswered: false,
+      quizCorrect: false,
+      studentName: ''
+    };
+
+    const themeToggle = document.getElementById('themeToggle');
+    const filterBar = document.getElementById('filterBar');
+    const courseGrid = document.getElementById('courseGrid');
+    const resultCount = document.getElementById('resultCount');
+    const courseSearch = document.getElementById('courseSearch');
+    const modal = document.getElementById('courseModal');
+    const closeModal = document.getElementById('closeModal');
+    const closeSecondary = document.getElementById('closeSecondary');
+
+    const modalTitle = document.getElementById('modalTitle');
+    const modalDescription = document.getElementById('modalDescription');
+    const modalCategory = document.getElementById('modalCategory');
+    const modalTrack = document.getElementById('modalTrack');
+    const modalDuration = document.getElementById('modalDuration');
+    const modalInstructor = document.getElementById('modalInstructor');
+    const videoFrame = document.getElementById('videoFrame');
+
+    const assessmentBox = document.getElementById('assessmentBox');
+    const statusBox = document.getElementById('statusBox');
+    const retakeBtn = document.getElementById('retakeBtn');
+    const optionList = document.getElementById('optionList');
+    const quizQuestion = document.getElementById('quizQuestion');
+    const launchQuizBtn = document.getElementById('launchQuizBtn');
+
+    const certificatePanel = document.getElementById('certificatePanel');
+    const certStudentName = document.getElementById('certStudentName');
+    const certCourseName = document.getElementById('certCourseName');
+    const certDate = document.getElementById('certDate');
+    const certificateCourseBadge = document.getElementById('certificateCourseBadge');
+    const savePdfBtn = document.getElementById('savePdfBtn');
+    const printCertBtn = document.getElementById('printCertBtn');
+
+    function applyTheme(theme) {
+      const isLight = theme === 'light';
+      document.body.classList.toggle('light', isLight);
+      localStorage.setItem('proacademy-theme', theme);
+      themeToggle.textContent = isLight ? '🌙' : '☀️';
+    }
+
+    function initTheme() {
+      const saved = localStorage.getItem('proacademy-theme');
+      if (saved === 'light') {
+        applyTheme('light');
+      } else {
+        applyTheme('dark');
+      }
+    }
+
+    function renderFilters() {
+      filterBar.innerHTML = categories.map(category => `
+        <button class="filter-btn ${state.activeCategory === category.key ? 'active' : ''}" type="button" data-category="${category.key}">${category.label}</button>
+      `).join('');
+
+      filterBar.querySelectorAll('.filter-btn').forEach(button => {
+        button.addEventListener('click', () => {
+          state.activeCategory = button.dataset.category;
+          renderFilters();
+          renderCourses();
+        });
+      });
+    }
+
+    function getFilteredCourses() {
+      const query = state.search.trim().toLowerCase();
+      return courseData.filter(course => {
+        const matchesCategory = state.activeCategory === 'all' || course.categoryKey === state.activeCategory;
+        const haystack = `${course.name} ${course.category} ${course.track} ${course.level}`.toLowerCase();
+        const matchesSearch = !query || haystack.includes(query);
+        return matchesCategory && matchesSearch;
+      });
+    }
+
+    function renderCourses() {
+      const filtered = getFilteredCourses();
+      resultCount.textContent = filtered.length;
+      courseGrid.innerHTML = filtered.map(course => `
+        <article class="course-card" data-course-name="${course.name}">
+          <div class="thumb" aria-hidden="true"></div>
+          <div class="card-top">
+            <span class="badge">${course.category}</span>
+            <span class="rating">⭐ 4.9</span>
+          </div>
+          <h3>${course.name}</h3>
+          <div class="meta">
+            <span>${course.level}</span>
+            <span>${course.duration}</span>
+          </div>
+          <button class="course-btn" type="button" data-course-name="${course.name}">Open Course</button>
+        </article>
+      `).join('');
+
+      courseGrid.querySelectorAll('.course-btn').forEach(button => {
+        button.addEventListener('click', () => openCourseModal(button.dataset.courseName));
+      });
+    }
+
+    function openCourseModal(courseName) {
+      const course = courseData.find(item => item.name === courseName);
+      if (!course) return;
+
+      state.selectedCourse = course;
+      state.activeAssessmentCourse = course;
+      state.quizAnswered = false;
+      state.quizCorrect = false;
+      state.activeQuizIndex = 0;
+
+      modalTitle.textContent = course.name;
+      modalDescription.textContent = `Master ${course.name} with premium training, guided practice, and proof-driven portfolio outputs designed for real-world demand.`;
+      modalCategory.textContent = course.category;
+      modalTrack.textContent = course.track;
+      modalDuration.textContent = course.duration;
+      modalInstructor.textContent = course.instructor;
+      videoFrame.src = course.youtube;
+
+      assessmentBox.classList.remove('visible');
+      statusBox.classList.remove('success', 'error');
+      statusBox.textContent = '';
+      retakeBtn.classList.remove('visible');
+      certificatePanel.classList.remove('visible');
+      launchQuizBtn.textContent = 'Launch Certification Quiz';
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeCourseModal() {
+      modal.classList.remove('open');
+      document.body.style.overflow = '';
+      videoFrame.src = '';
+      statusBox.textContent = '';
+      statusBox.classList.remove('success', 'error');
+      retakeBtn.classList.remove('visible');
+      assessmentBox.classList.remove('visible');
+      certificatePanel.classList.remove('visible');
+      launchQuizBtn.textContent = 'Launch Certification Quiz';
+      state.quizAnswered = false;
+      state.quizCorrect = false;
+      state.activeQuizIndex = 0;
+    }
+
+    function renderQuiz() {
+      const course = state.activeAssessmentCourse;
+      if (!course) return;
+      const quiz = course.quiz;
+      quizQuestion.textContent = quiz.question;
+
+      optionList.innerHTML = quiz.options.map((option, idx) => `
+        <label class="option">
+          <input type="radio" name="answerOption" value="${option}" ${idx === 0 ? 'checked' : ''} />
+          <span>${option}</span>
+        </label>
+      `).join('');
+
+      optionList.querySelectorAll('input').forEach(input => {
+        input.addEventListener('change', () => {
+          const chosen = document.querySelector('input[name="answerOption"]:checked')?.value;
+          if (!chosen) return;
+
+          const correct = chosen === quiz.answer;
+          statusBox.classList.remove('success', 'error');
+          if (correct) {
+            statusBox.classList.add('success');
+            statusBox.textContent = '✅ Correct. Your institutional certificate has been unlocked.';
+            retakeBtn.classList.remove('visible');
+            state.quizAnswered = true;
+            state.quizCorrect = true;
+            showCertificate();
+          } else {
+            statusBox.classList.add('error');
+            statusBox.textContent = '❌ Incorrect. Please retake the quiz to verify your understanding.';
+            retakeBtn.classList.add('visible');
+            state.quizAnswered = true;
+            state.quizCorrect = false;
+          }
+        });
+      });
+    }
+
+    function showCertificate() {
+      const course = state.activeAssessmentCourse;
+      if (!course) return;
+      const studentName = document.getElementById('studentName')?.value || 'Student Learner';
+      certStudentName.textContent = studentName;
+      certCourseName.textContent = course.name;
+      certDate.textContent = 'Date: ' + new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+      certificateCourseBadge.textContent = `${course.category} • Verified`;
+      certificatePanel.classList.add('visible');
+      launchQuizBtn.textContent = 'Quiz Passed';
+    }
+
+    function launchQuiz() {
+      const course = state.activeAssessmentCourse;
+      if (!course) return;
+      assessmentBox.classList.add('visible');
+      renderQuiz();
+    }
+
+    function retakeQuiz() {
+      const course = state.activeAssessmentCourse;
+      if (!course) return;
+      state.quizAnswered = false;
+      state.quizCorrect = false;
+      statusBox.textContent = '';
+      statusBox.classList.remove('success', 'error');
+      retakeBtn.classList.remove('visible');
+      launchQuizBtn.textContent = 'Launch Certification Quiz';
+      certificatePanel.classList.remove('visible');
+      renderQuiz();
+    }
+
+    function savePdf() {
+      const printable = document.getElementById('certificatePanel');
+      if (!printable) return;
+      const printWindow = window.open('', '_blank');
+      printWindow.document.write(`
+        <html>
+          <head>
+            <title>ProAcademy Certificate</title>
+            <style>
+              body { font-family: Arial, sans-serif; background: #0c1722; color: #fff; margin: 0; padding: 40px; }
+              .wrap { border: 2px solid #c7d6ff; border-radius: 18px; padding: 32px; background: linear-gradient(135deg,#0f172a,#122a40,#0b1120); }
+              h1 { font-size: 28px; margin: 0 0 12px; }
+              .name { font-size: 40px; font-weight: bold; margin: 26px 0 8px; }
+              .meta { font-size: 18px; color: #d9e4ff; }
+            </style>
+          </head>
+          <body>
+            <div class="wrap">
+              <h1>ProAcademy Certification</h1>
+              <div class="name">${certStudentName.textContent}</div>
+              <div class="meta">Course: ${certCourseName.textContent}</div>
+              <div class="meta">Issued: ${certDate.textContent.replace('Date: ', '')}</div>
+            </div>
+          </body>
+        </html>
+      `);
+      printWindow.document.close();
+      printWindow.focus();
+      setTimeout(() => printWindow.print(), 400);
+    }
+
+    function bindStudentForm() {
+      const studentForm = document.getElementById('studentForm');
+      const formStatus = document.getElementById('formStatus');
+      const studentMobile = document.getElementById('studentMobile');
+
+      studentMobile.addEventListener('input', () => {
+        studentMobile.value = studentMobile.value.replace(/\D/g, '').slice(0, 11);
+      });
+
+      studentForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const name = document.getElementById('studentName').value.trim();
+        const mobile = studentMobile.value.trim();
+        const email = document.getElementById('studentEmail').value.trim();
+        const batch = document.getElementById('studentBatch').value.trim();
+
+        const isValidNumber = /^\d{11}$/.test(mobile);
+        if (!name || !mobile || !email || !batch) {
+          formStatus.className = 'form-status error';
+          formStatus.textContent = 'Please complete all fields before activation.';
+          return;
+        }
+
+        if (!isValidNumber) {
+          formStatus.className = 'form-status error';
+          formStatus.textContent = 'Mobile number must be exactly 11 digits.';
+          return;
+        }
+
+        formStatus.className = 'form-status success';
+        formStatus.textContent = 'Activating student ID...';
+
+        await new Promise(resolve => setTimeout(resolve, 900));
+
+        const mockResult = {
+          status: 'success',
+          studentId: `PA-${Date.now().toString().slice(-7)}`,
+          name,
+          mobile,
+          email,
+          batch
+        };
+
+        formStatus.textContent = `✅ Mock server hook successful. Student ID ${mockResult.studentId} activated for ${name}.`;
+        state.studentName = name;
+        certStudentName.textContent = name;
+      });
+    }
+
+    themeToggle.addEventListener('click', () => {
+      const current = document.body.classList.contains('light') ? 'light' : 'dark';
+      applyTheme(current === 'light' ? 'dark' : 'light');
+    });
+
+    courseSearch.addEventListener('input', (event) => {
+      state.search = event.target.value;
+      renderCourses();
+    });
+
+    closeModal.addEventListener('click', closeCourseModal);
+    closeSecondary.addEventListener('click', closeCourseModal);
+    launchQuizBtn.addEventListener('click', launchQuiz);
+    retakeBtn.addEventListener('click', retakeQuiz);
+    savePdfBtn.addEventListener('click', savePdf);
+    printCertBtn.addEventListener('click', () => window.print());
+
+    modal.addEventListener('click', (event) => {
+      if (event.target === modal) closeCourseModal();
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && modal.classList.contains('open')) closeCourseModal();
+    });
+
+    initTheme();
+    renderFilters();
+    renderCourses();
+    bindStudentForm();
+  </script>
+</body>
+</html>
